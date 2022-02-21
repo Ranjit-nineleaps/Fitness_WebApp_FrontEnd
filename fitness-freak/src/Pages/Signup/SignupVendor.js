@@ -1,5 +1,5 @@
-import React from 'react';
-import { Formik, Form } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +8,7 @@ import Textfield from '../../Components/FormsUI/TextFieldWrapper';
 import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
 import Checkbox from '../../Components/FormsUI/FormCheckbox';
 import Button from '../../Components/FormsUI/FormButton';
-
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -22,6 +22,7 @@ const initialValues = {
   lastName: '',
   email: '',
   password: '',
+  registration: null,
   tnc: false
 };
 
@@ -41,119 +42,132 @@ const validationSchema = Yup.object().shape({
     .required('The terms and conditions must be accepted.'),
 });
 
+
+
 function SignupVendor(){
   const classes = useStyles();
-
   return (
-    <Grid container>
-      <Grid item xs={12}>
-      <h3>Fitness-Freak</h3>
-        <Container maxWidth="md">
-          <div className={classes.formWrapper}>
+      
+    
+      <Grid container>
+        <Grid item xs={12}>
+        <h3>Fitness-Freak</h3>
+          <Container maxWidth="md">
+            <div className={classes.formWrapper}>
 
-            <Formik
-              initialValues={{...initialValues}}
-              validationSchema={validationSchema}
-              onSubmit={async(values) => {
-                const data = {
-                  firstName: values.firstName,
-                  lastName: values.lastName,
-                  email:values.email,
-                  password: values.password
-                };
-              
-                const axiosConfig = {
-                  headers: {
-                    'Content-Type' : 'application/json'
-                  },
-                };
+              <Formik
+                initialValues={{...initialValues}}
+                validationSchema={validationSchema}
+                onSubmit={async(values) => {
+                  const data = {
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    email:values.email,
+                    password: values.password
+                  };
+                
+                  const axiosConfig = {
+                    headers: {
+                      'Content-Type' : 'application/json'
+                    },
+                  };
 
-                await Axios.post(
-                  // 'https://my-json-server.typicode.com/rNineleaps/demo/users',
-                  'https://nineleaps-fitness.herokuapp.com/register/vendor',
-                  data,
-                  axiosConfig
-                )
-                .then((response)=>{
-                  console.log("Successful!!!",response)
-                })
-                .catch((err) =>{
-                  console.error("Error",err)
-                });
-            }
-            }
-            >
-              {({values, isSubmitting})=>(
-              <Form
-                method="POST"
-                className="signupform"
-                >
+                  await Axios.post(
+                    'https://nineleaps-fitness.herokuapp.com/register/vendor',
+                    data,
+                    axiosConfig
+                  )
+                  .then((response)=>{
+                    //console.log("Successful!!!",response);
+                    if(response.data.email){
+                      swal("Success!!!", "You are now a Registered User", "success")
+                    } else{
+                      swal("Failed!!!", "You are Already a Registered User", "error")
+                    }
+                  })
+                  .catch((err) =>{
+                    console.error("Error",err)
+                  });
+              }
+              }
+              >
+                {({values, isSubmitting})=>(
+                <Form
+                  method="POST"
+                  className="signupform"
+                  >
 
-                <Grid container spacing={2}>
-                  
-                  <Grid item xs={12}>
-                    <Typography>
-                      Vendor Registration Form
-                    </Typography>
+                  <Grid container spacing={2}>
+                    
+                    <Grid item xs={12}>
+                      <Typography>
+                        Vendor Registration Form
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Textfield
+                        id="firstName"
+                        name="firstName"
+                        label="First Name"
+                      />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Textfield
+                        id="lastName"
+                        name="lastName"
+                        label="Last Name"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Textfield
+                        id="email"
+                        name="email"
+                        label="E-Mail ID"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <PasswordTextfield 
+                        id="password"
+                        name="password"
+                        label="Password"                                  
+                        />   
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Checkbox
+                        name="tnc"
+                        legend="Terms and Conditions"
+                        label="I agree to the Terms of Agreement"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Button>
+                        Submit
+                      </Button>
+                      <div>
+                      
+                    </div>
+                    </Grid>
+                    
+
                   </Grid>
 
-                  <Grid item xs={6}>
-                    <Textfield
-                      id="firstName"
-                      name="firstName"
-                      label="First Name"
-                    />
-                  </Grid>
+                </Form>
+                )}
+              </Formik>
 
-                  <Grid item xs={6}>
-                    <Textfield
-                      id="lastName"
-                      name="lastName"
-                      label="Last Name"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      id="email"
-                      name="email"
-                      label="E-Mail ID"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <PasswordTextfield 
-                      id="password"
-                      name="password"
-                      label="Password"                                  
-                      />   
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Checkbox
-                      name="tnc"
-                      legend="Terms and Conditions"
-                      label="I agree to the Terms of Agreement"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Button>
-                      Submit
-                    </Button>
-                  </Grid>
-
-                </Grid>
-
-              </Form>
-              )}
-            </Formik>
-
-          </div>
-        </Container>
+            </div>
+          </Container>
+        </Grid>
       </Grid>
-    </Grid>
-  );
-};
+      
+    
+    );
+  };
 
-export default SignupVendor ;
+  export default SignupVendor ;

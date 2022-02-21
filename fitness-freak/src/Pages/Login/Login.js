@@ -7,7 +7,7 @@ import { Container, Grid, Typography } from '@material-ui/core';
 import Textfield from '../../Components/FormsUI/TextFieldWrapper';
 import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
 import Button from '../../Components/FormsUI/FormButton';
-
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
     .required('Required!')
 });
 
-function SignupVendor({ authorized }){
+function Login(){
   
   const classes = useStyles();
 
@@ -58,12 +58,16 @@ function SignupVendor({ authorized }){
 
                 await Axios.post(
                   'https://nineleaps-fitness.herokuapp.com/login/vendor',
-                  // 'https://my-json-server.typicode.com/rNineleaps/demo/login',
                   data,
                   axiosConfig
                 )
                 .then((response)=>{
-                  console.log("Successful!!!",response)
+                  //console.log("Successful!!!",response);
+                  if(response.data.email){
+                    swal("Success!!!", "Welcome to Fitness-Freak", "success")
+                  } else{
+                    swal("Failed!!!", "Check Your Credentials Again", "error")
+                  }
                 })
                 .catch((err) =>{
                   console.error(err);
@@ -121,4 +125,4 @@ function SignupVendor({ authorized }){
   );
 };
 
-export default SignupVendor ;
+export default Login ;

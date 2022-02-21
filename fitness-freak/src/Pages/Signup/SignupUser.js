@@ -8,7 +8,7 @@ import Textfield from '../../Components/FormsUI/TextFieldWrapper';
 import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
 import Checkbox from '../../Components/FormsUI/FormCheckbox';
 import Button from '../../Components/FormsUI/FormButton';
-
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -69,12 +69,17 @@ function SignupUser(){
                 };
 
                 await Axios.post(
-                  //'https://nineleaps-fitness.herokuapp.com/register/vendor',
+                  // 'https://nineleaps-fitness.herokuapp.com/register/vendor',
                   data,
                   axiosConfig
                 )
                 .then((response)=>{
-                  console.log("Successful!!!",response)
+                  //console.log("Successful!!!",response);
+                  if(response.data.email){
+                    swal("Success!!!", "You are now a Registered User", "success")
+                  } else{
+                    swal("Failed!!!", "You are Already a Registered User", "error")
+                  }
                 })
                 .catch((err) =>{
                   console.error("Error",err)
