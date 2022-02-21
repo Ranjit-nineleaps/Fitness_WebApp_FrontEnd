@@ -1,8 +1,10 @@
 import React from "react";
 import "./HomeMain.css";
-import login from '../../Pages/Login/Login'
-import SignupVendor from "../../Pages/Signup/SignupVendor";
+
 function HomeMain() {
+  const handleClick = () => {
+    window.location="/login"
+  }
   return (    
     <div className="image">
         <div className="text1">
@@ -12,8 +14,8 @@ function HomeMain() {
         <h2>YOU ARE A??</h2>
       </div>
       <div className="buttons">
-          <button>Fitness Enthusiast</button>
-          <button>Vendor</button>
+          <button onClick={handleClick}>Fitness Enthusiast</button>
+          <button onClick={handleClick}>Vendor</button>
         </div>
     </div>
   );

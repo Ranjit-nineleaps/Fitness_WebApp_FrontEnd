@@ -1,7 +1,7 @@
 .image {
   display: flex;
   background: url("../../Assets/images/homepageImg.jpg") no-repeat center; 
-  height: 90vh;
+  height: 100vh;
   color: #fff;
   min-height: 400px;
   background-size: cover; 

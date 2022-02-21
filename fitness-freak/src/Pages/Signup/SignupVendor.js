@@ -42,7 +42,9 @@ const validationSchema = Yup.object().shape({
     .required('The terms and conditions must be accepted.'),
 });
 
-
+const handleClick = () => {
+  window.location="/login"
+}
 
 function SignupVendor(){
   const classes = useStyles();
@@ -81,6 +83,7 @@ function SignupVendor(){
                     //console.log("Successful!!!",response);
                     if(response.data.email){
                       swal("Success!!!", "You are now a Registered User", "success")
+                      window.location="/login"
                     } else{
                       swal("Failed!!!", "You are Already a Registered User", "error")
                     }
@@ -163,6 +166,10 @@ function SignupVendor(){
 
             </div>
           </Container>
+          <div>
+          <h2>Already have an Account?</h2>
+          <button onClick={handleClick}>Log In</button>
+        </div>
         </Grid>
       </Grid>
       

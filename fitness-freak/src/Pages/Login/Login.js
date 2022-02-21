@@ -8,6 +8,11 @@ import Textfield from '../../Components/FormsUI/TextFieldWrapper';
 import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
 import Button from '../../Components/FormsUI/FormButton';
 import swal from 'sweetalert';
+import{useNavigate} from 'react-router-dom';
+
+const handleClick = () => {
+  window.location="/SignupVendor"
+}
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -65,6 +70,7 @@ function Login(){
                   //console.log("Successful!!!",response);
                   if(response.data.email){
                     swal("Success!!!", "Welcome to Fitness-Freak", "success")
+                    window.location="/VendorDashboard"
                   } else{
                     swal("Failed!!!", "Check Your Credentials Again", "error")
                   }
@@ -107,7 +113,7 @@ function Login(){
                   </Grid>
 
                   <Grid item xs={12}>
-                    <Button>
+                    <Button >
                       Submit
                     </Button>
                   </Grid>
@@ -120,6 +126,10 @@ function Login(){
 
           </div>
         </Container>
+        <div>
+          <h2>Don't have an Account?</h2>
+          <button onClick={handleClick}>Sign up</button>
+        </div>
       </Grid>
     </Grid>
   );
