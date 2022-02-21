@@ -1,12 +1,12 @@
-import Signupvendor from './Pages/Signup/SignupVendor'
-import SignupUser from './Pages/Signup/SignupUser';
+import Homepage from './Pages/Homepage';
+import SignupVendor from './Pages/Signup/SignupVendor'
 import Login from './Pages/Login/Login'
 function App() {
   return (
     <div className="App">
-      <Signupvendor />
-      {/* <SignupUser /> */}
-      {/* <Login /> */}
+      {/* <Homepage/> */}
+      {/* <SignupVendor /> */}
+      <Login />
     </div>
   );
 }

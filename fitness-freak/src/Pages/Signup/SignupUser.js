@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
 import Textfield from '../../Components/FormsUI/TextFieldWrapper';
@@ -20,7 +21,7 @@ const initialValues = {
   firstName: '',
   lastName: '',
   email: '',
-  pswd: '',
+  password: '',
   tnc: false
 };
 
@@ -32,7 +33,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email.')
     .required('Required'),
-  pswd: Yup.string()
+  password: Yup.string()
     .min(8,'Password should be atleast 8 Characters')
     .required('Required!'),
   tnc: Yup.boolean()
@@ -53,11 +54,38 @@ function SignupUser(){
             <Formik
               initialValues={{...initialValues}}
               validationSchema={validationSchema}
-              onSubmit={values => {
-                console.log(values);
-              }}
+              onSubmit={async(values) => {
+                const data = {
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                  email:values.email,
+                  password: values.password
+                };
+              
+                const axiosConfig = {
+                  headers: {
+                    'Content-Type' : 'application/json'
+                  },
+                };
+
+                await Axios.post(
+                  //'https://nineleaps-fitness.herokuapp.com/register/vendor',
+                  data,
+                  axiosConfig
+                )
+                .then((response)=>{
+                  console.log("Successful!!!",response)
+                })
+                .catch((err) =>{
+                  console.error("Error",err)
+                });
+            }}
             >
-              <Form>
+              {({values, isSubmitting})=>(
+              <Form
+                method="POST"
+                className="signupform"
+                >
 
                 <Grid container spacing={2}>
                   
@@ -69,6 +97,7 @@ function SignupUser(){
 
                   <Grid item xs={6}>
                     <Textfield
+                      id="firstName"
                       name="firstName"
                       label="First Name"
                     />
@@ -76,6 +105,7 @@ function SignupUser(){
 
                   <Grid item xs={6}>
                     <Textfield
+                      id="lastName"
                       name="lastName"
                       label="Last Name"
                     />
@@ -83,6 +113,7 @@ function SignupUser(){
 
                   <Grid item xs={12}>
                     <Textfield
+                      id="email"
                       name="email"
                       label="E-Mail ID"
                     />
@@ -90,8 +121,9 @@ function SignupUser(){
 
                   <Grid item xs={12}>
                     <PasswordTextfield 
-                      name='pswd' 
-                      label='Password'                                    
+                      id="password"
+                      name="password"
+                      label="Password"                                  
                       />   
                   </Grid>
 
@@ -112,6 +144,7 @@ function SignupUser(){
                 </Grid>
 
               </Form>
+              )}
             </Formik>
 
           </div>
@@ -121,4 +154,4 @@ function SignupUser(){
   );
 };
 
-export default SignupUser;
+export default SignupUser ;

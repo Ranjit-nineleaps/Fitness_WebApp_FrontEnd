@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
@@ -21,8 +21,8 @@ const initialValues = {
   firstName: '',
   lastName: '',
   email: '',
-  pswd: ''
-  //tnc: false
+  password: '',
+  tnc: false
 };
 
 const validationSchema = Yup.object().shape({
@@ -33,12 +33,12 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email.')
     .required('Required'),
-  pswd: Yup.string()
+  password: Yup.string()
     .min(8,'Password should be atleast 8 Characters')
     .required('Required!'),
-  // tnc: Yup.boolean()
-  //   .oneOf([true], 'The terms and conditions must be accepted.')
-  //   .required('The terms and conditions must be accepted.'),
+  tnc: Yup.boolean()
+    .oneOf([true], 'The terms and conditions must be accepted.')
+    .required('The terms and conditions must be accepted.'),
 });
 
 function SignupVendor(){
@@ -59,7 +59,7 @@ function SignupVendor(){
                   firstName: values.firstName,
                   lastName: values.lastName,
                   email:values.email,
-                  password: values.pswd
+                  password: values.password
                 };
               
                 const axiosConfig = {
@@ -69,15 +69,16 @@ function SignupVendor(){
                 };
 
                 await Axios.post(
+                  // 'https://my-json-server.typicode.com/rNineleaps/demo/users',
                   'https://nineleaps-fitness.herokuapp.com/register/vendor',
                   data,
                   axiosConfig
                 )
                 .then((response)=>{
-                  console.log("Successful!!")
+                  console.log("Successful!!!",response)
                 })
-                .catch((e) =>{
-
+                .catch((err) =>{
+                  console.error("Error",err)
                 });
             }
             }
@@ -122,19 +123,19 @@ function SignupVendor(){
 
                   <Grid item xs={12}>
                     <PasswordTextfield 
-                      id="pswd"
-                      name="pswd"
-                      label="Password"                                    
+                      id="password"
+                      name="password"
+                      label="Password"                                  
                       />   
                   </Grid>
 
-                  {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
                     <Checkbox
                       name="tnc"
                       legend="Terms and Conditions"
                       label="I agree to the Terms of Agreement"
                     />
-                  </Grid> */}
+                  </Grid>
 
                   <Grid item xs={12}>
                     <Button>

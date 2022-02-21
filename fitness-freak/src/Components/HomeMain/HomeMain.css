@@ -1,0 +1,62 @@
+.image {
+  display: flex;
+  background: url("../../Assets/images/homepageImg.jpg") no-repeat center; 
+  height: 90vh;
+  color: #fff;
+  min-height: 400px;
+  background-size: cover; 
+  /* background-attachment: fixed;  */
+  /* width: 100%; */
+}
+.image .buttons button {
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+.image .buttons button {
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin: 5px 0px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.image .buttons{
+  padding-top: 350px;
+  margin-left: 50px;
+  margin-right: 50px;
+  left: 30px;
+  top: 80px;
+}
+    
+.image .text1 h1{
+  position: absolute;
+  width: 619px;
+  height: 10px;
+  left: 68px;
+  top: 140px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 59px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.3em;
+  text-decoration-line: underline;
+  color: black;
+  font-weight: bold;
+}
+.image .text2 h2{
+  margin-top: 270px;
+  margin-left: 30px;
+  position: absolute;
+  left: 37px;
+  color: #021e39;
+  font-weight: bold;
+}

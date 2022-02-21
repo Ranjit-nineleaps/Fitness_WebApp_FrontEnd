@@ -8,7 +8,7 @@ const DateTimePicker = ({
 }) => {
   const [field, meta] = useField(name);
 
-  const configDateTimePicker = {
+  const configDatePicker = {
     ...field,
     ...otherProps,
     type: 'date',
@@ -20,13 +20,13 @@ const DateTimePicker = ({
   };
 
   if(meta && meta.touched && meta.error) {
-    configDateTimePicker.error = true;
-    configDateTimePicker.helperText = meta.error;
+    configDatePicker.error = true;
+    configDatePicker.helperText = meta.error;
   }
 
   return (
     <TextField
-      {...configDateTimePicker}
+      {...configDatePicker}
     />
   );
 };
