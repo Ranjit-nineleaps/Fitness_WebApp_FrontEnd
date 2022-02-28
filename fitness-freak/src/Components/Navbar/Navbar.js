@@ -13,7 +13,7 @@ export default function NavBar() {
         </div>
         <button onClick={() => setShowLinks(!showLinks)}>
           {""}
-         <ReorderIcon />
+          <ReorderIcon />
         </button>
       </div>
       <div className="rightside">

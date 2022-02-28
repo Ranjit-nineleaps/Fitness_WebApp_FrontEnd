@@ -5,6 +5,7 @@ const ButtonWrapper = ({
   startIcon,
   children,
   endIcon,
+  onClick,
   ...otherProps
 }) => {
 
@@ -12,7 +13,8 @@ const ButtonWrapper = ({
     variant: 'outlined',
     color: 'primary',
     fullWidth: true,
-    size: 'large'
+    size: 'large',
+    onClick
   }
 
   return (

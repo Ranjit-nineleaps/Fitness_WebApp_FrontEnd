@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
-import Textfield from '../../Components/FormsUI/TextFieldWrapper';
-import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
-import Checkbox from '../../Components/FormsUI/FormCheckbox';
-import Button from '../../Components/FormsUI/FormButton';
+import Textfield from '../../Components/Inputs/TextFieldWrapper';
+import PasswordTextfield from '../../Components/Inputs/PasswordTextfield';
+import Checkbox from '../../Components/Inputs/FormCheckbox';
+import Button from '../../Components/Inputs/FormButton';
 import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,11 +17,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const lowercaseRegex = /(?=.*[a-z])/;
+const uppercaseRegex = /(?=.*[A-Z])/;
+const numericRegex = /(?=.*[0-9])/;
+const specialCharacterRegex = /(?=.*[!@#\$%\^&\*])/;
+
 const initialValues = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
+  confirmPassword:'',
   registration: null,
   tnc: false
 };
@@ -35,8 +41,15 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email.')
     .required('Required'),
   password: Yup.string()
-    .min(8,'Password should be atleast 8 Characters')
+    .matches(lowercaseRegex, 'One lowercase required!')
+    .matches(uppercaseRegex, 'One uppercase required!')
+    .matches(numericRegex, 'One number required!')
+    .matches(specialCharacterRegex, 'One special character required!')
+    .min(8,'Minimum 8 Characters required!')
     .required('Required!'),
+  confirmPassword: Yup.string()
+  .oneOf([Yup.ref('password')], 'Password must be the same!')
+  .required('Required!'),
   tnc: Yup.boolean()
     .oneOf([true], 'The terms and conditions must be accepted.')
     .required('The terms and conditions must be accepted.'),
@@ -61,6 +74,7 @@ function SignupVendor(){
                 initialValues={{...initialValues}}
                 validationSchema={validationSchema}
                 onSubmit={async(values) => {
+                  
                   const data = {
                     firstName: values.firstName,
                     lastName: values.lastName,
@@ -132,11 +146,19 @@ function SignupVendor(){
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                       <PasswordTextfield 
                         id="password"
                         name="password"
                         label="Password"                                  
+                        />   
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <PasswordTextfield 
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        label="Confirm-Password"                                  
                         />   
                     </Grid>
 

@@ -2,21 +2,30 @@ import React from "react";
 import "./HomeMain.css";
 
 function HomeMain() {
-  const handleClick = () => {
-    window.location="/login"
-  }
-  return (    
+  return (
     <div className="image">
-        <div className="text1">
-            <h1>Fitness Made Simple!!</h1>
-        </div>
-        <div className="text2">
-        <h2>YOU ARE A??</h2>
+      <div className="text1">
+        <h1>Fitness Made Simple!!</h1>
+      </div>
+      <div className="text2">
+        <h2>You are a?</h2>
       </div>
       <div className="buttons">
-          <button onClick={handleClick}>Fitness Enthusiast</button>
-          <button onClick={handleClick}>Vendor</button>
-        </div>
+        <button
+          onClick={() => {
+            window.location = "/login";
+          }}
+        >
+          Fitness Enthusiast
+        </button>
+        <button
+          onClick={() => {
+            window.location = "/login";
+          }}
+        >
+          Vendor
+        </button>
+      </div>
     </div>
   );
 }

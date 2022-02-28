@@ -1,5 +1,11 @@
 import React from 'react';
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@material-ui/core';
+import { 
+        Checkbox,
+        FormControl, 
+        FormControlLabel, 
+        FormGroup, 
+        FormLabel,
+        FormHelperText } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';
 
 const CheckboxWrapper = ({

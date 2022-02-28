@@ -1,18 +1,17 @@
-import React from 'react';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import Axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography } from '@material-ui/core';
-import Textfield from '../../Components/FormsUI/TextFieldWrapper';
-import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
-import Button from '../../Components/FormsUI/FormButton';
-import swal from 'sweetalert';
-import{useNavigate} from 'react-router-dom';
+import React from "react";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import Axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Grid, Typography } from "@material-ui/core";
+import Textfield from "../../Components/Inputs/TextFieldWrapper";
+import PasswordTextfield from "../../Components/Inputs/PasswordTextfield";
+import Button from "../../Components/Inputs/FormButton";
+import swal from "sweetalert";
 
 const handleClick = () => {
-  window.location="/SignupVendor"
-}
+  window.location = "/SignupVendor";
+};
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -22,117 +21,107 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialValues = {
-  email: '',
-  password: ''
+  email: "",
+  password: "",
 };
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email.')
-    .required('Required'),
+  email: Yup.string().email("Invalid email.").required("Required"),
   password: Yup.string()
-    .min(8,'Password should be atleast 8 Characters')
-    .required('Required!')
+    .min(8, "Password should be atleast 8 Characters")
+    .required("Required!"),
 });
 
-function Login(){
-  
+function Login() {
   const classes = useStyles();
 
   return (
     <Grid container>
       <Grid item xs={12}>
-      <h3>Fitness-Freak</h3>
+        <h3>Fitness-Freak</h3>
         <Container maxWidth="md">
           <div className={classes.formWrapper}>
-
             <Formik
-              initialValues={{...initialValues}}
+              initialValues={{ ...initialValues }}
               validationSchema={validationSchema}
-              onSubmit={async(values) => {
+              onSubmit={async (values) => {
                 const data = {
-                  email:values.email,
-                  password: values.password
+                  email: values.email,
+                  password: values.password,
                 };
-              
+
                 const axiosConfig = {
                   headers: {
-                    'Content-Type' : 'application/json'
+                    "Content-Type": "application/json",
                   },
                 };
 
                 await Axios.post(
-                  'https://nineleaps-fitness.herokuapp.com/login/vendor',
+                  "https://nineleaps-fitness.herokuapp.com/login/vendor",
                   data,
                   axiosConfig
                 )
-                .then((response)=>{
-                  //console.log("Successful!!!",response);
-                  if(response.data.email){
-                    swal("Success!!!", "Welcome to Fitness-Freak", "success")
-                    window.location="/VendorDashboard"
-                  } else{
-                    swal("Failed!!!", "Check Your Credentials Again", "error")
-                  }
-                })
-                .catch((err) =>{
-                  console.error(err);
-                });
-            }
-            }
+                  .then((response) => {
+                    //console.log("Successful!!!",response);
+                    if (response.data.email) {
+                      swal("Success!!!", "Welcome to Fitness-Freak", "success");
+                      window.location = "/VendorDashboard";
+                    } else {
+                      swal(
+                        "Failed!!!",
+                        "Check Your Credentials Again",
+                        "error"
+                      );
+                    }
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
+              }}
             >
-              {({values, isSubmitting})=>(
-              <Form
-                method="POST"
-                className="signupform"
-                >
+              {({ values, isSubmitting }) => (
+                <Form method="POST" className="signupform">
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography>LogIn Form</Typography>
+                    </Grid>
 
-                <Grid container spacing={2}>
-                  
-                  <Grid item xs={12}>
-                    <Typography>
-                      LogIn Form
-                    </Typography>
+                    <Grid item xs={12}>
+                      <Textfield id="email" name="email" label="E-Mail ID" />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <PasswordTextfield
+                        id="password"
+                        name="password"
+                        label="Password"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Button disabled={!values || !isSubmitting}>
+                        Submit
+                      </Button>
+                    </Grid>
                   </Grid>
-
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      id="email"
-                      name="email"
-                      label="E-Mail ID"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <PasswordTextfield 
-                      id="password"
-                      name="password"
-                      label="Password"                                  
-                      />   
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Button >
-                      Submit
-                    </Button>
-                  </Grid>
-
-                </Grid>
-
-              </Form>
+                </Form>
               )}
             </Formik>
-
           </div>
         </Container>
         <div>
           <h2>Don't have an Account?</h2>
-          <button onClick={handleClick}>Sign up</button>
+          <button
+            onClick={() => {
+              window.location = "/SignupVendor";
+            }}
+          >
+            Sign up
+          </button>
         </div>
       </Grid>
     </Grid>
   );
-};
+}
 
-export default Login ;
+export default Login;
