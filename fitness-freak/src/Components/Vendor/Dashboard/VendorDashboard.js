@@ -48,7 +48,14 @@ function VendorDashboard() {
               >
                 Edit a Registered Fitness-Center
               </Button>
-              <Button endIcon={<PaidIcon />}>Payment Details</Button>
+              <Button
+                endIcon={<PaidIcon />}
+                onClick={() => {
+                  window.location = "/VendorPayment";
+                }}
+              >
+                Payment Section
+              </Button>
             </Grid>
           </div>
         </Container>

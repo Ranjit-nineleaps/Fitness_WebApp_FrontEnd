@@ -95,7 +95,6 @@ const validationSchema = Yup.object().shape({
 });
 function VendorAddCenter() {
   const classes = useStyles();
-  const [fcSlot, setValue] = React.useState(new Date());
   return (
     <>
       <Navbar />

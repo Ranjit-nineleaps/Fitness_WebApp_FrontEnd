@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import SignupVendor from "./Pages/Signup/SignupVendor";
 import Login from "../src/Pages/Login/Login";
 import VendorDashboard from "./Components/Vendor/Dashboard/VendorDashboard";
-import VendorEditCenter from "./Pages/Vendor/VendorEditGym/VendorEditCenter";
+import VendorEditCenter from "./Pages/Vendor/VendorEditCenter/VendorEditCenter";
 import VendorAddCenter from "./Pages/Vendor/VendorAddCenter/VendorAddCenter";
-
+import VendorPayment from "./Pages/Vendor/VendorPaymentSection/VendorPayment";
 function App() {
   return (
     <Router>
@@ -16,6 +16,7 @@ function App() {
         <Route exact path="/VendorDashboard" component={VendorDashboard} />
         <Route exact path="/VendorAddCenter" component={VendorAddCenter} />
         <Route exact path="/VendorEditCenter" component={VendorEditCenter} />
+        <Route exact path="/VendorPayment" component={VendorPayment} />
       </Switch>
     </Router>
   );
