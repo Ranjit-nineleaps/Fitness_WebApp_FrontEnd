@@ -1,10 +1,9 @@
 import React from "react";
-import './index.css';
-import { useState } from "react";
-import { Container, Grid, TextField, Typography } from "@material-ui/core";
+import "./index.css";
+import { Container, Grid, Typography } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import Navbar from "../../../Components/Navbar/Navbar";
+import Navbar from "../../../Components/Navbar";
 import { makeStyles } from "@material-ui/core";
 import Controls from "../../../Components/Controls";
 
@@ -111,7 +110,10 @@ function VendorAddCenter() {
                 <Form>
                   <Grid container item spacing={2}>
                     <Grid item xs={6}>
-                      <Controls.Textfield name="fcName" label="Fitness-Center Name" />
+                      <Controls.Textfield
+                        name="fcName"
+                        label="Fitness-Center Name"
+                      />
                     </Grid>
                     <Grid item xs={3}>
                       <Controls.Textfield
@@ -138,7 +140,10 @@ function VendorAddCenter() {
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <Controls.Textfield name="fcAddress.areaName" label="Area-Name" />
+                      <Controls.Textfield
+                        name="fcAddress.areaName"
+                        label="Area-Name"
+                      />
                     </Grid>
                     <Grid item xs={2}>
                       <Controls.Textfield name="fcAddress.city" label="City" />
@@ -170,7 +175,10 @@ function VendorAddCenter() {
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <Controls.TimePicker name="fcSlot.morning.endTime" label="End" />
+                      <Controls.TimePicker
+                        name="fcSlot.morning.endTime"
+                        label="End"
+                      />
                     </Grid>
                     <Grid item xs={2}>
                       <Controls.TimePicker
@@ -179,7 +187,10 @@ function VendorAddCenter() {
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <Controls.TimePicker name="fcSlot.afternoon.endTime" label="End" />
+                      <Controls.TimePicker
+                        name="fcSlot.afternoon.endTime"
+                        label="End"
+                      />
                     </Grid>
                     <Grid item xs={2}>
                       <Controls.TimePicker
@@ -188,7 +199,10 @@ function VendorAddCenter() {
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <Controls.TimePicker name="fcSlot.evening.endTime" label="End" />
+                      <Controls.TimePicker
+                        name="fcSlot.evening.endTime"
+                        label="End"
+                      />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -326,7 +340,7 @@ function VendorAddCenter() {
                         // style={{ display: "none" }}
                       />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                       <Controls.FormButton>ADD</Controls.FormButton>
                     </Grid>
                   </Grid>

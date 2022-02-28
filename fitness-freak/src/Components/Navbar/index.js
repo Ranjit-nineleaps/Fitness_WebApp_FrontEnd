@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReorderIcon from "@material-ui/icons/Reorder";
-import "./Navbar.css";
+import "./index.css";
 export default function NavBar() {
   const [showLinks, setShowLinks] = useState(false);
   return (

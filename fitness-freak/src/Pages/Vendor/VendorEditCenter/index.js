@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Controls from '../../../Components/Controls';
 import GymImg from '../../../Assets/images/GymdetailsImg.png';
 import EditIcon from '@mui/icons-material/Edit';
-import NavBar from '../../../Components/Navbar/Navbar';
+import NavBar from '../../../Components/Navbar';
 
 const Img = styled('img')({
   margin: 'auto',

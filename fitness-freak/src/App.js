@@ -2,7 +2,7 @@ import Homepage from "../src/Pages/Homepage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import SignupVendor from "./Pages/Signup/SignupVendor";
 import Login from "../src/Pages/Login/Login";
-import VendorDashboard from "./Components/Vendor/Dashboard/VendorDashboard";
+import VendorDashboard from "./Pages/Vendor/VendorDashboard";
 import VendorEditCenter from "./Pages/Vendor/VendorEditCenter";
 import VendorAddCenter from "./Pages/Vendor/VendorAddCenter";
 import VendorPayment from "./Pages/Vendor/VendorPaymentSection";

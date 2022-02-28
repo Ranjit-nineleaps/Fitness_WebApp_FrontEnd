@@ -6,11 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid, Typography } from "@material-ui/core";
 import swal from "sweetalert";
 import Controls from "../../Components/Controls";
-import controls from "../../Components/Controls";
-
-const handleClick = () => {
-  window.location = "/SignupVendor";
-};
+import NavBar from "../../Components/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -35,95 +31,104 @@ function Login() {
   const classes = useStyles();
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <h3>Fitness-Freak</h3>
-        <Container maxWidth="md">
-          <div className={classes.formWrapper}>
-            <Formik
-              initialValues={{ ...initialValues }}
-              validationSchema={validationSchema}
-              onSubmit={async (values) => {
-                const data = {
-                  email: values.email,
-                  password: values.password,
-                };
+    <>
+      <NavBar />
+      <Grid container>
+        <Grid item xs={12}>
+          <h3>Fitness-Freak</h3>
+          <Container maxWidth="md">
+            <div className={classes.formWrapper}>
+              <Formik
+                initialValues={{ ...initialValues }}
+                validationSchema={validationSchema}
+                onSubmit={async (values) => {
+                  const data = {
+                    email: values.email,
+                    password: values.password,
+                  };
 
-                const axiosConfig = {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                };
+                  const axiosConfig = {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  };
 
-                await Axios.post(
-                  "https://nineleaps-fitness.herokuapp.com/login/vendor",
-                  data,
-                  axiosConfig
-                )
-                  .then((response) => {
-                    //console.log("Successful!!!",response);
-                    if (response.data.email) {
-                      swal("Success!!!", "Welcome to Fitness-Freak", "success");
-                      window.location = "/VendorDashboard";
-                    } else {
-                      swal(
-                        "Failed!!!",
-                        "Check Your Credentials Again",
-                        "error"
-                      );
-                    }
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                  });
+                  await Axios.post(
+                    "https://nineleaps-fitness.herokuapp.com/login/vendor",
+                    data,
+                    axiosConfig
+                  )
+                    .then((response) => {
+                      //console.log("Successful!!!",response);
+                      if (response.data.email) {
+                        swal(
+                          "Success!!!",
+                          "Welcome to Fitness-Freak",
+                          "success"
+                        );
+                        window.location = "/VendorDashboard";
+                      } else {
+                        swal(
+                          "Failed!!!",
+                          "Check Your Credentials Again",
+                          "error"
+                        );
+                      }
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                    });
+                }}
+              >
+                {({ values, isSubmitting }) => (
+                  <Form method="POST" className="signupform">
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography>LogIn Form</Typography>
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <Controls.Textfield
+                          id="email"
+                          name="email"
+                          label="E-Mail ID"
+                        />
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <Controls.PasswordTextfield
+                          id="password"
+                          name="password"
+                          label="Password"
+                        />
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <Controls.FormButton
+                          disabled={!values || !isSubmitting}
+                        >
+                          Submit
+                        </Controls.FormButton>
+                      </Grid>
+                    </Grid>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </Container>
+          <div>
+            <h2>Don't have an Account?</h2>
+            <Controls.FieldButton
+              onClick={() => {
+                window.location = "/SignupVendor";
               }}
             >
-              {({ values, isSubmitting }) => (
-                <Form method="POST" className="signupform">
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography>LogIn Form</Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <Controls.Textfield
-                        id="email"
-                        name="email"
-                        label="E-Mail ID"
-                      />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <Controls.PasswordTextfield
-                        id="password"
-                        name="password"
-                        label="Password"
-                      />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <Controls.FormButton disabled={!values || !isSubmitting}>
-                        Submit
-                      </Controls.FormButton>
-                    </Grid>
-                  </Grid>
-                </Form>
-              )}
-            </Formik>
+              Sign up
+            </Controls.FieldButton>
           </div>
-        </Container>
-        <div>
-          <h2>Don't have an Account?</h2>
-          <Controls.FieldButton
-            onClick={() => {
-              window.location = "/SignupVendor";
-            }}
-          >
-            Sign up
-          </Controls.FieldButton>
-        </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
 

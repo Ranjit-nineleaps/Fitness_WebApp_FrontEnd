@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import { Container, Grid, Typography } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import Navbar from "../../../Components/Navbar/Navbar";
+import Navbar from "../../../Components/Navbar";
 import Controls from "../../../Components/Controls";
 import paymentSchedules from "../../../Data/paymentSchedule.json";
 
