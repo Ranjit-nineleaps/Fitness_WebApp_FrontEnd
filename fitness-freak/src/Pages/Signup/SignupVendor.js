@@ -22,6 +22,7 @@ const uppercaseRegex = /(?=.*[A-Z])/;
 const numericRegex = /(?=.*[0-9])/;
 const specialCharacterRegex = /(?=.*[!@#\$%\^&\*])/;
 
+
 const initialValues = {
   firstName: '',
   lastName: '',
