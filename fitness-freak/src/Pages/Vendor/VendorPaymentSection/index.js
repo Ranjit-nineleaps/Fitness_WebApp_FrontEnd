@@ -1,12 +1,11 @@
 import React from "react";
+import './index.css';
 import { makeStyles } from "@material-ui/core";
 import { Container, Grid, Typography } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import Textfield from "../../../Components/Inputs/TextFieldWrapper";
 import Navbar from "../../../Components/Navbar/Navbar";
-import Button from "../../../Components/Inputs/FormButton";
-import Select from "../../../Components/Inputs/Select";
+import Controls from "../../../Components/Controls";
 import paymentSchedules from "../../../Data/paymentSchedule.json";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,43 +64,43 @@ function VendorPayment() {
                       <Typography>Payment-Section</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                      <Textfield name="email" label="Email-ID" />
+                      <Controls.Textfield name="email" label="Email-ID" />
                     </Grid>
                     <Grid item xs={12}>
-                      <Textfield name="fullName" label="Full Name" />
+                      <Controls.Textfield name="fullName" label="Full Name" />
                     </Grid>
                     <Grid item xs={5}>
-                      <Textfield name="bankName" label="Bank Name" />
+                      <Controls.Textfield name="bankName" label="Bank Name" />
                     </Grid>
                     <Grid item xs={4}>
-                      <Textfield name="branchName" label="Branch Name" />
+                      <Controls.Textfield name="branchName" label="Branch Name" />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield name="ifsc" label="IFSC" />
+                      <Controls.Textfield name="ifsc" label="IFSC" />
                     </Grid>
                     <Grid item xs={6}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="bankAccount"
                         label="Account No."
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="confirmBankAccount"
                         label="Confirm Account No."
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <Select
+                      <Controls.Select
                         name="paymentSchedule"
                         label="Payment Schedule"
                         options={paymentSchedules}
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <Button>Submit</Button>
+                      <Controls.FormButton>Submit</Controls.FormButton>
                     </Grid>
                   </Grid>
                 </Form>

@@ -4,10 +4,9 @@ import * as Yup from "yup";
 import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid, Typography } from "@material-ui/core";
-import Textfield from "../../Components/Inputs/TextFieldWrapper";
-import PasswordTextfield from "../../Components/Inputs/PasswordTextfield";
-import Button from "../../Components/Inputs/FormButton";
 import swal from "sweetalert";
+import Controls from "../../Components/Controls";
+import controls from "../../Components/Controls";
 
 const handleClick = () => {
   window.location = "/SignupVendor";
@@ -87,11 +86,15 @@ function Login() {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Textfield id="email" name="email" label="E-Mail ID" />
+                      <Controls.Textfield
+                        id="email"
+                        name="email"
+                        label="E-Mail ID"
+                      />
                     </Grid>
 
                     <Grid item xs={12}>
-                      <PasswordTextfield
+                      <Controls.PasswordTextfield
                         id="password"
                         name="password"
                         label="Password"
@@ -99,9 +102,9 @@ function Login() {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Button disabled={!values || !isSubmitting}>
+                      <Controls.FormButton disabled={!values || !isSubmitting}>
                         Submit
-                      </Button>
+                      </Controls.FormButton>
                     </Grid>
                   </Grid>
                 </Form>
@@ -111,13 +114,13 @@ function Login() {
         </Container>
         <div>
           <h2>Don't have an Account?</h2>
-          <button
+          <Controls.FieldButton
             onClick={() => {
               window.location = "/SignupVendor";
             }}
           >
             Sign up
-          </button>
+          </Controls.FieldButton>
         </div>
       </Grid>
     </Grid>

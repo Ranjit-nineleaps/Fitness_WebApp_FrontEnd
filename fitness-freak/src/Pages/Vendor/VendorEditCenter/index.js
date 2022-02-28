@@ -1,9 +1,10 @@
 import * as React from 'react';
+import './index.css';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Button from '../../../Components/Inputs/EditButton';
+import Controls from '../../../Components/Controls';
 import GymImg from '../../../Assets/images/GymdetailsImg.png';
 import EditIcon from '@mui/icons-material/Edit';
 import NavBar from '../../../Components/Navbar/Navbar';
@@ -18,6 +19,7 @@ const Img = styled('img')({
 function VendorEditGym() {
   return (
   <>
+    <NavBar />
     <Paper
       sx={{
         p: 2,
@@ -31,9 +33,9 @@ function VendorEditGym() {
         <Grid item xs={12}>
             <Grid container spacing={2}>
             <Grid item>
-            <Button sx={{ width: 128, height: 128 }}>
+            <Controls.FieldButton sx={{ width: 128, height: 128 }}>
                 <Img alt="gym1 Img" src={GymImg} />
-            </Button>
+            </Controls.FieldButton>
             </Grid>
             <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
@@ -53,17 +55,17 @@ function VendorEditGym() {
                     </Grid>
                 </Grid>
                 <Grid item>
-                <Button endIcon={<EditIcon />}>
+                <Controls.FieldButton endIcon={<EditIcon />}>
                         Edit
-                </Button>
+                </Controls.FieldButton>
                 </Grid>          
             </Grid>
         </Grid>
         <Grid container spacing={2}>
             <Grid item>
-            <Button sx={{ width: 128, height: 128 }}>
+            <Controls.FieldButton sx={{ width: 128, height: 128 }}>
                 <Img alt="gym1 Img" src={GymImg} />
-            </Button>
+            </Controls.FieldButton>
             </Grid>
             <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
@@ -83,17 +85,17 @@ function VendorEditGym() {
                     </Grid>
                 </Grid>
                 <Grid item>
-                <Button endIcon={<EditIcon />}>
+                <Controls.FieldButton endIcon={<EditIcon />}>
                         Edit
-                </Button>
+                </Controls.FieldButton>
                 </Grid>          
             </Grid>
         </Grid>
         <Grid container spacing={2}>
             <Grid item>
-            <Button sx={{ width: 128, height: 128 }}>
+            <Controls.FieldButton sx={{ width: 128, height: 128 }}>
                 <Img alt="gym1 Img" src={GymImg} />
-            </Button>
+            </Controls.FieldButton>
             </Grid>
             <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
@@ -113,17 +115,17 @@ function VendorEditGym() {
                     </Grid>
                 </Grid>
                 <Grid item>
-                <Button endIcon={<EditIcon />}>
+                <Controls.FieldButton endIcon={<EditIcon />}>
                         Edit
-                </Button>
+                </Controls.FieldButton>
                 </Grid>          
             </Grid>
         </Grid>
         <Grid container spacing={2}>
             <Grid item>
-            <Button sx={{ width: 128, height: 128 }}>
+            <Controls.FieldButton sx={{ width: 128, height: 128 }}>
                 <Img alt="gym1 Img" src={GymImg} />
-            </Button>
+            </Controls.FieldButton>
             </Grid>
             <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
@@ -143,17 +145,17 @@ function VendorEditGym() {
                     </Grid>
                 </Grid>
                 <Grid item>
-                <Button endIcon={<EditIcon />}>
+                <Controls.FieldButton endIcon={<EditIcon />}>
                         Edit
-                </Button>
+                </Controls.FieldButton>
                 </Grid>          
             </Grid>
         </Grid>
         <Grid container spacing={2}>
             <Grid item>
-            <Button sx={{ width: 128, height: 128 }}>
+            <Controls.FieldButton sx={{ width: 128, height: 128 }}>
                 <Img alt="gym1 Img" src={GymImg} />
-            </Button>
+            </Controls.FieldButton>
             </Grid>
             <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
@@ -173,9 +175,9 @@ function VendorEditGym() {
                     </Grid>
                 </Grid>
                 <Grid item>
-                <Button endIcon={<EditIcon />}>
+                <Controls.FieldButton endIcon={<EditIcon />}>
                         Edit
-                </Button>
+                </Controls.FieldButton>
                 </Grid>          
             </Grid>
         </Grid>

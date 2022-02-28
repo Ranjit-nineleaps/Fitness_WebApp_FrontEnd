@@ -1,14 +1,11 @@
-import React from 'react';
-import { Formik, Form } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
-import Textfield from '../../Components/FormsUI/TextFieldWrapper';
-import PasswordTextfield from '../../Components/FormsUI/PasswordTextfield';
-import Checkbox from '../../Components/FormsUI/FormCheckbox';
-import Button from '../../Components/FormsUI/FormButton';
 import swal from 'sweetalert';
+import Controls from '../../Components/Controls';
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -17,11 +14,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const lowercaseRegex = /(?=.*[a-z])/;
+const uppercaseRegex = /(?=.*[A-Z])/;
+const numericRegex = /(?=.*[0-9])/;
+const specialCharacterRegex = /(?=.*[!@#\$%\^&\*])/;
+
+
 const initialValues = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
+  confirmPassword:'',
+  registration: null,
   tnc: false
 };
 
@@ -34,129 +39,162 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email.')
     .required('Required'),
   password: Yup.string()
-    .min(8,'Password should be atleast 8 Characters')
+    .matches(lowercaseRegex, 'One lowercase required!')
+    .matches(uppercaseRegex, 'One uppercase required!')
+    .matches(numericRegex, 'One number required!')
+    .matches(specialCharacterRegex, 'One special character required!')
+    .min(8,'Minimum 8 Characters required!')
     .required('Required!'),
+  confirmPassword: Yup.string()
+  .oneOf([Yup.ref('password')], 'Password must be the same!')
+  .required('Required!'),
   tnc: Yup.boolean()
     .oneOf([true], 'The terms and conditions must be accepted.')
     .required('The terms and conditions must be accepted.'),
 });
 
+const handleClick = () => {
+  window.location="/login"
+}
+
 function SignupUser(){
   const classes = useStyles();
-
   return (
-    <Grid container>
-      <Grid item xs={12}>
-      <h3>Fitness-Freak</h3>
-        <Container maxWidth="md">
-          <div className={classes.formWrapper}>
+      
+    
+      <Grid container>
+        <Grid item xs={12}>
+        <h3>Fitness-Freak</h3>
+          <Container maxWidth="md">
+            <div className={classes.formWrapper}>
 
-            <Formik
-              initialValues={{...initialValues}}
-              validationSchema={validationSchema}
-              onSubmit={async(values) => {
-                const data = {
-                  firstName: values.firstName,
-                  lastName: values.lastName,
-                  email:values.email,
-                  password: values.password
-                };
-              
-                const axiosConfig = {
-                  headers: {
-                    'Content-Type' : 'application/json'
-                  },
-                };
-
-                await Axios.post(
-                  // 'https://nineleaps-fitness.herokuapp.com/register/vendor',
-                  data,
-                  axiosConfig
-                )
-                .then((response)=>{
-                  //console.log("Successful!!!",response);
-                  if(response.data.email){
-                    swal("Success!!!", "You are now a Registered User", "success")
-                  } else{
-                    swal("Failed!!!", "You are Already a Registered User", "error")
-                  }
-                })
-                .catch((err) =>{
-                  console.error("Error",err)
-                });
-            }}
-            >
-              {({values, isSubmitting})=>(
-              <Form
-                method="POST"
-                className="signupform"
-                >
-
-                <Grid container spacing={2}>
+              <Formik
+                initialValues={{...initialValues}}
+                validationSchema={validationSchema}
+                onSubmit={async(values) => {
                   
-                  <Grid item xs={12}>
-                    <Typography>
-                      Fitness-Enthusiast Registration Form
-                    </Typography>
+                  const data = {
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    email:values.email,
+                    password: values.password
+                  };
+                
+                  const axiosConfig = {
+                    headers: {
+                      'Content-Type' : 'application/json'
+                    },
+                  };
+
+                  await Axios.post(
+                    //'https://nineleaps-fitness.herokuapp.com/register/vendor',
+                    data,
+                    axiosConfig
+                  )
+                  .then((response)=>{
+                    //console.log("Successful!!!",response);
+                    if(response.data.email){
+                      swal("Success!!!", "You are now a Registered User", "success")
+                      window.location="/login"
+                    } else{
+                      swal("Failed!!!", "You are Already a Registered User", "error")
+                    }
+                  })
+                  .catch((err) =>{
+                    console.error("Error",err)
+                  });
+              }
+              }
+              >
+                {({values, isSubmitting})=>(
+                <Form
+                  method="POST"
+                  className="signupform"
+                  >
+
+                  <Grid container spacing={2}>
+                    
+                    <Grid item xs={12}>
+                      <Typography>
+                        Vendor Registration Form
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Controls.Textfield
+                        id="firstName"
+                        name="firstName"
+                        label="First Name"
+                      />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Controls.Textfield
+                        id="lastName"
+                        name="lastName"
+                        label="Last Name"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Controls.Textfield
+                        id="email"
+                        name="email"
+                        label="E-Mail ID"
+                      />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Controls.PasswordTextfield
+                        id="password"
+                        name="password"
+                        label="Password"                                  
+                        />   
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <Controls.PasswordTextfield
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        label="Confirm-Password"                                  
+                        />   
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Controls.FormCheckbox
+                        name="tnc"
+                        legend="Terms and Conditions"
+                        label="I agree to the Terms of Agreement"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Controls.FormButton>
+                        Submit
+                      </Controls.FormButton>
+                      <div>
+                      
+                    </div>
+                    </Grid>
+                    
+
                   </Grid>
 
-                  <Grid item xs={6}>
-                    <Textfield
-                      id="firstName"
-                      name="firstName"
-                      label="First Name"
-                    />
-                  </Grid>
+                </Form>
+                )}
+              </Formik>
 
-                  <Grid item xs={6}>
-                    <Textfield
-                      id="lastName"
-                      name="lastName"
-                      label="Last Name"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      id="email"
-                      name="email"
-                      label="E-Mail ID"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <PasswordTextfield 
-                      id="password"
-                      name="password"
-                      label="Password"                                  
-                      />   
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Checkbox
-                      name="tnc"
-                      legend="Terms and Conditions"
-                      label="I agree to the Terms of Agreement"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Button>
-                      Submit
-                    </Button>
-                  </Grid>
-
-                </Grid>
-
-              </Form>
-              )}
-            </Formik>
-
-          </div>
-        </Container>
+            </div>
+          </Container>
+          <div>
+          <h2>Already have an Account?</h2>
+          <Controls.FieldButton onClick={handleClick}>Log In</Controls.FieldButton>
+        </div>
+        </Grid>
       </Grid>
-    </Grid>
-  );
-};
+      
+    
+    );
+  };
 
-export default SignupUser ;
+  export default SignupUser ;

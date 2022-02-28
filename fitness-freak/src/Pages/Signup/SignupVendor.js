@@ -4,11 +4,8 @@ import * as Yup from 'yup';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
-import Textfield from '../../Components/Inputs/TextFieldWrapper';
-import PasswordTextfield from '../../Components/Inputs/PasswordTextfield';
-import Checkbox from '../../Components/Inputs/FormCheckbox';
-import Button from '../../Components/Inputs/FormButton';
 import swal from 'sweetalert';
+import Controls from '../../Components/Controls';
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -124,7 +121,7 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={6}>
-                      <Textfield
+                      <Controls.Textfield
                         id="firstName"
                         name="firstName"
                         label="First Name"
@@ -132,7 +129,7 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={6}>
-                      <Textfield
+                      <Controls.Textfield
                         id="lastName"
                         name="lastName"
                         label="Last Name"
@@ -140,7 +137,7 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Textfield
+                      <Controls.Textfield
                         id="email"
                         name="email"
                         label="E-Mail ID"
@@ -148,7 +145,7 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={6}>
-                      <PasswordTextfield 
+                      <Controls.PasswordTextfield
                         id="password"
                         name="password"
                         label="Password"                                  
@@ -156,7 +153,7 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={6}>
-                      <PasswordTextfield 
+                      <Controls.PasswordTextfield
                         id="confirmPassword"
                         name="confirmPassword"
                         label="Confirm-Password"                                  
@@ -164,7 +161,7 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Checkbox
+                      <Controls.FormCheckbox
                         name="tnc"
                         legend="Terms and Conditions"
                         label="I agree to the Terms of Agreement"
@@ -172,9 +169,9 @@ function SignupVendor(){
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Button>
+                      <Controls.FormButton>
                         Submit
-                      </Button>
+                      </Controls.FormButton>
                       <div>
                       
                     </div>
@@ -191,7 +188,7 @@ function SignupVendor(){
           </Container>
           <div>
           <h2>Already have an Account?</h2>
-          <button onClick={handleClick}>Log In</button>
+          <Controls.FieldButton onClick={handleClick}>Log In</Controls.FieldButton>
         </div>
         </Grid>
       </Grid>

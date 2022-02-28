@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import SignupVendor from "./Pages/Signup/SignupVendor";
 import Login from "../src/Pages/Login/Login";
 import VendorDashboard from "./Components/Vendor/Dashboard/VendorDashboard";
-import VendorEditCenter from "./Pages/Vendor/VendorEditCenter/VendorEditCenter";
-import VendorAddCenter from "./Pages/Vendor/VendorAddCenter/VendorAddCenter";
-import VendorPayment from "./Pages/Vendor/VendorPaymentSection/VendorPayment";
+import VendorEditCenter from "./Pages/Vendor/VendorEditCenter";
+import VendorAddCenter from "./Pages/Vendor/VendorAddCenter";
+import VendorPayment from "./Pages/Vendor/VendorPaymentSection";
 function App() {
   return (
     <Router>

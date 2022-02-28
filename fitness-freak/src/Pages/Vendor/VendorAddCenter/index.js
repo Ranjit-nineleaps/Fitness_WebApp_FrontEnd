@@ -1,14 +1,12 @@
 import React from "react";
+import './index.css';
 import { useState } from "react";
 import { Container, Grid, TextField, Typography } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import Textfield from "../../../Components/Inputs/TextFieldWrapper";
 import Navbar from "../../../Components/Navbar/Navbar";
-import Button from "../../../Components/Inputs/FormButton";
 import { makeStyles } from "@material-ui/core";
-import FormCheckbox from "../../../Components/Inputs/FormCheckbox";
-import TimePicker from "../../../Components/Inputs/TimePicker";
+import Controls from "../../../Components/Controls";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -113,17 +111,17 @@ function VendorAddCenter() {
                 <Form>
                   <Grid container item spacing={2}>
                     <Grid item xs={6}>
-                      <Textfield name="fcName" label="Fitness-Center Name" />
+                      <Controls.Textfield name="fcName" label="Fitness-Center Name" />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcContact"
                         label="Contact No."
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcCapacity"
                         label="Capacity"
@@ -134,19 +132,19 @@ function VendorAddCenter() {
                       <label>Address</label>
                     </Grid>
                     <Grid item xs={4}>
-                      <Textfield
+                      <Controls.Textfield
                         name="fcAddress.buildingName"
                         label="Building-Name"
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield name="fcAddress.areaName" label="Area-Name" />
+                      <Controls.Textfield name="fcAddress.areaName" label="Area-Name" />
                     </Grid>
                     <Grid item xs={2}>
-                      <Textfield name="fcAddress.city" label="City" />
+                      <Controls.Textfield name="fcAddress.city" label="City" />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcAddress.postalCode"
                         label="Postal-Code"
@@ -166,66 +164,66 @@ function VendorAddCenter() {
                       <label>Evening-Slot</label>
                     </Grid>
                     <Grid item xs={2}>
-                      <TimePicker
+                      <Controls.TimePicker
                         name="fcSlot.morning.startTime"
                         label="Start"
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <TimePicker name="fcSlot.morning.endTime" label="End" />
+                      <Controls.TimePicker name="fcSlot.morning.endTime" label="End" />
                     </Grid>
                     <Grid item xs={2}>
-                      <TimePicker
+                      <Controls.TimePicker
                         name="fcSlot.afternoon.startTime"
                         label="Start"
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <TimePicker name="fcSlot.afternoon.endTime" label="End" />
+                      <Controls.TimePicker name="fcSlot.afternoon.endTime" label="End" />
                     </Grid>
                     <Grid item xs={2}>
-                      <TimePicker
+                      <Controls.TimePicker
                         name="fcSlot.evening.startTime"
-                        label="Star"
+                        label="Start"
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <TimePicker name="fcSlot.evening.endTime" label="End" />
+                      <Controls.TimePicker name="fcSlot.evening.endTime" label="End" />
                     </Grid>
 
                     <Grid item xs={12}>
                       <label>Subscription-Planner</label>
                     </Grid>
                     <Grid item xs={2}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcSubscription.monthly"
                         label="Monthly"
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcSubscription.quaterly"
                         label="Quarterly"
                       />
                     </Grid>
                     <Grid item xs={2}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcSubscription.halfYearly"
                         label="Half Yearly"
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcSubscription.yearly"
                         label="Yearly"
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <Textfield
+                      <Controls.Textfield
                         type="number"
                         name="fcSubscription.offer"
                         label="Discount"
@@ -308,7 +306,7 @@ function VendorAddCenter() {
                       </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                      <FormCheckbox
+                      <Controls.FormCheckbox
                         name="tnc"
                         legend="All the above details are true"
                         label="I hereby declare that the above facts are true to the best of my knowledge"
@@ -329,7 +327,7 @@ function VendorAddCenter() {
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <Button>ADD</Button>
+                      <Controls.FormButton>ADD</Controls.FormButton>
                     </Grid>
                   </Grid>
                 </Form>
