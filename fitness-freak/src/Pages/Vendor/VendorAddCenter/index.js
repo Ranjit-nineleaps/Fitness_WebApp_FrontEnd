@@ -3,8 +3,10 @@ import "./index.css";
 import { Container, Grid, Typography } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import Axios from "axios";
 import Navbar from "../../../Components/Navbar";
 import { makeStyles } from "@material-ui/core";
+import swal from "sweetalert";
 import Controls from "../../../Components/Controls";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialValues = {
+  email: "",
   fcName: "",
   fcAddress: {
     buildingName: "",
@@ -25,18 +28,10 @@ const initialValues = {
   },
   fcFacility: [],
   fcSlot: {
-    morning: {
-      startTime: "",
-      endTime: "",
-    },
-    afternoon: {
-      startTime: "",
-      endTime: "",
-    },
-    evening: {
-      startTime: "",
-      endTime: "",
-    },
+    morning: '',
+    afternoon: '',
+    evening: '',
+    weekly_off:''
   },
   fcSubscription: {
     monthly: "",
@@ -52,6 +47,7 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email.").required("Required"),
   fcName: Yup.string().required("Required!"),
   fcAddress: Yup.object().shape({
     buildingName: Yup.string().required("Required!"),
@@ -61,21 +57,10 @@ const validationSchema = Yup.object().shape({
   }),
   fcFacility: Yup.array().required("Required!"),
   fcSlot: Yup.object().shape({
-    morning: Yup.object().shape({
-      startTime: Yup.string(),
-      endTime: Yup.string(),
-      // .min(Yup.ref('fcSlot.morning.startTime'), "Can't be before start time")
-    }),
-    afternoon: Yup.object().shape({
-      startTime: Yup.string(),
-      endTime: Yup.string(),
-      // .min(Yup.ref('fcSlot.afternoon.startTime'), "Can't be before start time")
-    }),
-    evening: Yup.object().shape({
-      startTime: Yup.string(),
-      endTime: Yup.string(),
-      // .min(Yup.ref('fcSlot.evening.startTime'), "Can't be before start time")
-    }),
+    morning: Yup.string().required("Required!"),
+    afternoon: Yup.string().required("Required!"),
+    evening: Yup.string().required("Required!"),
+    weekly_off:Yup.string().required('Required!')
   }),
   fcSubscription: Yup.object().shape({
     monthly: Yup.number().required("Required!"),
@@ -102,27 +87,87 @@ function VendorAddCenter() {
             <Formik
               initialValues={{ ...initialValues }}
               validationSchema={validationSchema}
-              onSubmit={(values) => {
-                console.log(values);
+              onSubmit={async (values) => {
+                const data = {
+                  vendor_email: values.email,
+                  gym_name: values.fcName,
+                  gymAddress: {
+                    bulding_name: values.fcAddress.buildingName,
+                    area_name: values.fcAddress.areaName,
+                    city: values.fcAddress.city,
+                    postal_code: values.fcAddress.postalCode
+                  },
+                  workoutList: values.fcFacility,
+                  timing: {
+                    morning: values.fcSlot.morning,
+                    noon: values.fcSlot.afternoon,
+                    evening: values.fcSlot.evening,
+                    weekly_off: values.fcSlot.weekly_off
+                  },
+                  subscription: {
+                    monthly: values.fcSubscription.monthly,
+                    quaterly: values.fcSubscription.quaterly,
+                    half_yearly: values.fcSubscription.halfYearly,
+                    yearly: values.fcSubscription.yearly,
+                    offer: values.fcSubscription.offer
+                  },
+                  contact: values.fcContact,
+                  capacity: values.fcCapacity,
+                  
+                };
+
+                const axiosConfig = {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                };
+
+                await Axios.put(
+                  "https://nineleaps-fitness.herokuapp.com/add/gym",
+                  data,
+                  axiosConfig
+                )
+                  .then((response) => {
+                    console.log("Successful!!!", response);
+                    // if (response.data.id) {
+                    //   swal(
+                    //     "Success!!!",
+                    //     "You are now a Registered User",
+                    //     "success"
+                    //   );
+                    //  // window.location = "/VendorDashboard";
+                    // } else {
+                    //   //swal("Failed!!!", "You are Already a Registered User", "error")
+                    // }
+                  })
+                  .catch((err) => {
+                    console.error("Error", err.response.data);
+                  });
               }}
             >
-              {(formProps) => (
-                <Form>
+              {({ formProps, values, isSubmitting }) => (
+                <Form method="PUT" className="fitnessCenterRegistration">
                   <Grid container item spacing={2}>
+                    <Grid item xs={6}>
+                      <Controls.Textfield
+                        name="email"
+                        label="Vendor Email-ID"
+                      />
+                    </Grid>
                     <Grid item xs={6}>
                       <Controls.Textfield
                         name="fcName"
                         label="Fitness-Center Name"
                       />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                       <Controls.Textfield
                         type="number"
                         name="fcContact"
                         label="Contact No."
                       />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                       <Controls.Textfield
                         type="number"
                         name="fcCapacity"
@@ -159,49 +204,28 @@ function VendorAddCenter() {
                     <Grid item xs={12}>
                       <label>Time-Slots</label>
                     </Grid>
-                    <Grid item xs={4}>
-                      <label>Morning-Slot</label>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <label>Afternoon-Slot</label>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <label>Evening-Slot</label>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Controls.TimePicker
-                        name="fcSlot.morning.startTime"
-                        label="Start"
+                    <Grid item xs={3}>
+                      <Controls.Textfield
+                        name="fcSlot.morning"
+                        label="Morning"
                       />
                     </Grid>
-                    <Grid item xs={2}>
-                      <Controls.TimePicker
-                        name="fcSlot.morning.endTime"
-                        label="End"
+                    <Grid item xs={3}>
+                      <Controls.Textfield
+                        name="fcSlot.afternoon"
+                        label="Afternoon"
                       />
                     </Grid>
-                    <Grid item xs={2}>
-                      <Controls.TimePicker
-                        name="fcSlot.afternoon.startTime"
-                        label="Start"
+                    <Grid item xs={3}>
+                      <Controls.Textfield
+                        name="fcSlot.evening"
+                        label="Evening"
                       />
                     </Grid>
-                    <Grid item xs={2}>
-                      <Controls.TimePicker
-                        name="fcSlot.afternoon.endTime"
-                        label="End"
-                      />
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Controls.TimePicker
-                        name="fcSlot.evening.startTime"
-                        label="Start"
-                      />
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Controls.TimePicker
-                        name="fcSlot.evening.endTime"
-                        label="End"
+                    <Grid item xs={3}>
+                      <Controls.Textfield
+                        name="fcSlot.weekly_off"
+                        label="Weeklyoff-Day"
                       />
                     </Grid>
 
